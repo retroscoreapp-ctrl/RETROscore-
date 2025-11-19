@@ -75,3 +75,10 @@ function renderMatches(matches) {
     container.appendChild(row);
   });
 }
+// --- ΚΟΜΜΑΤΙ 3: AUTO REFRESH + STARTUP ---
+
+// Φορτώνουμε live αγώνες στην αρχή
+loadLive();
+
+// Κάθε 20 δευτερόλεπτα ανανέωση
+setInterval(loadLive, 20000);
