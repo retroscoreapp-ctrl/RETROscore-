@@ -1,326 +1,94 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <meta charset="UTF-8" />
-  <title>RETROscore</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#000000" />
-  <link rel="manifest" href="RETROscore_manifest.json" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background:#000;
-      color:#fff;
-      font-family:"Courier New", monospace;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
-    }
-    body.big-font { font-size: 18px; }
-    .screen {
-      width:100%;
-      max-width:960px;
-      border:4px solid #444;
-      padding:14px;
-      background:#000;
-      box-shadow:0 0 25px rgba(0,0,0,0.85);
-      position:relative;
-      overflow:hidden;
-    }
-    .header {
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      border-bottom:2px solid #333;
-      padding-bottom:6px;
-      margin-bottom:6px;
-    }
-    .logo { font-size:30px; font-weight:bold; letter-spacing:1px; }
-    .logo .retro { color:#ffea00; }
-    .logo .score { color:#00ff66; }
-    .tagline { font-size:11px; color:#bbb; text-align:right; }
-    .color-stripe { display:flex; height:6px; margin:4px 0 6px 0; }
-    .color-stripe div { flex:1; }
-    .c-red { background:#ff0033; }
-    .c-yellow { background:#ffea00; }
-    .c-green { background:#00ff66; }
-    .c-blue { background:#00a2ff; }
-    .info-bar {
-      display:flex; justify-content:space-between;
-      font-size:11px; margin-bottom:4px; padding:3px 0;
-      border-bottom:1px solid:#222;
-    }
-    .page { color:#ffea00; }
-    .date-time { color:#00ff66; }
-    .status { color:#ff0033; }
-    .nav-bar {
-      display:flex;
-      gap:8px;
-      font-size:11px;
-      margin:2px 0 6px 0;
-    }
-    .nav-item {
-      padding:3px 8px;
-      border:1px solid #333;
-      cursor:pointer;
-      user-select:none;
-    }
-    .nav-item.active {
-      border-color:#ffea00;
-      color:#000;
-      background:#ffea00;
-      font-weight:bold;
-    }
-    .nav-item.inactive { color:#bbb; }
-    .section-title {
-      font-size:12px;
-      color:#ffea00;
-      margin:2px 0 2px 0;
-    }
-    .matches { font-size:13px; border-top:1px solid:#111; }
-    .match-row {
-      display:grid;
-      grid-template-columns:70px 1fr 70px 60px;
-      gap:8px;
-      padding:4px 0;
-      border-bottom:1px solid:#111;
-      cursor:pointer;
-      align-items:center;
-    }
-    .match-row:nth-child(2n) { background:#050505; }
-    .match-row:hover { background:#111; }
-    .league-badge {
-      color:#000;
-      background:#00a2ff;
-      padding:1px 4px;
-      font-size:10px;
-      display:inline-block;
-      text-align:center;
-      min-width:42px;
-    }
-    .teams {
-      color:#ffea00;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .score {
-      text-align:center;
-      color:#00ff66;
-      font-weight:bold;
-    }
-    .minute {
-      text-align:right;
-      color:#ffea00;
-      font-size:11px;
-    }
-    .minute.finished { color:#ff0033; }
-    .footer {
-      margin-top:6px; padding-top:4px; border-top:2px solid:#333;
-      font-size:11px; display:flex; justify-content:space-between;
-    }
-    .footer .hint span.key { color:#ffea00; }
-    .footer .brand { color:#00ff66; }
-    .settings {
-      font-size:13px;
-      border-top:1px solid:#111;
-      padding-top:4px;
-      display:none;
-    }
-    .settings-row {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:4px 0;
-      border-bottom:1px solid:#111;
-    }
-    .settings-label { color:#ffea00; font-size:12px; }
-    .settings-desc { color:#888; font-size:10px; }
-    .settings-toggle {
-      border:1px solid #444;
-      padding:2px 8px;
-      font-size:11px;
-      cursor:pointer;
-      user-select:none;
-      min-width:60px;
-      text-align:center;
-    }
-    .settings-toggle.on {
-      background:#00ff66;
-      color:#000;
-      border-color:#00ff66;
-    }
-    .overlay {
-      position:absolute;
-      inset:0;
-      background:#000000;
-      display:none;
-      flex-direction:column;
-      padding:10px 10px 8px 10px;
-    }
-    .overlay.active { display:flex; }
-    .overlay-header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-bottom:2px solid+#333;
-      padding-bottom:4px;
-      margin-bottom:4px;
-    }
-    .overlay-title {
-      font-size:14px;
-      color:#ffea00;
-      font-weight:bold;
-    }
-    .overlay-badge {
-      font-size:10px;
-      color:#00ff66;
-    }
-    .overlay-close {
-      font-size:11px;
-      color:#ff0033;
-      cursor:pointer;
-    }
-    .teams-line {
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      margin:4px 0;
-    }
-    .teams-line .team {
-      width:40%;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .teams-line .team.home { color:#ffea00; }
-    .teams-line .team.away { color:#00ff66; text-align:right; }
-    .teams-line .score-big {
-      font-size:22px;
-      font-weight:bold;
-      text-align:center;
-      color:#ffffff;
-      width:20%;
-    }
-    .minute-chip {
-      font-size:10px;
-      color:#000;
-      background:#ffea00;
-      padding:2px 6px;
-      display:inline-block;
-      margin-bottom:4px;
-    }
-    .minute-chip.finished {
-      background:#ff0033;
-      color:#fff;
-    }
-    .stats-block {
-      margin-top:2px;
-      border-top:1px solid #222;
-      padding-top:4px;
-      font-size:11px;
-    }
-    .stats-row {
-      display:grid;
-      grid-template-columns:1fr 120px 1fr;
-      align-items:center;
-      margin:3px 0;
-    }
-    .stat-label {
-      color:#bbbbbb;
-      font-size:10px;
-    }
-    .stat-val-left {
-      text-align:left;
-      color:#ffea00;
-    }
-    .stat-val-right {
-      text-align:right;
-      color:#00ff66;
-    }
-    .stat-bar {
-      height:7px;
-      background:#111;
-      position:relative;
-      margin:0 4px;
-      overflow:hidden;
-    }
-    .stat-bar-fill-left,
-    .stat-bar-fill-right {
-      position:absolute;
-      top:0; bottom:0;
-    }
-    .stat-bar-fill-left {
-      left:0;
-      background:#ffea00;
-    }
-    .stat-bar-fill-right {
-      right:0;
-      background:#00ff66;
-    }
-    .overlay-footer {
-      margin-top:auto;
-      border-top:2px solid #333;
-      padding-top:3px;
-      font-size:9px;
-      display:flex;
-      justify-content:space-between;
-      color:#777;
-    }
-    @media (max-width:600px) {
-      .screen { border-width:2px; padding:8px; }
-      .match-row { grid-template-columns:60px 1fr 60px 50px; font-size:12px; }
-      .logo { font-size:24px; }
-      .tagline { font-size:9px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>RETROscore</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  background: #000;
+  color: #fff;
+  font-family: monospace;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 4px solid #444;
+}
+
+.header .title {
+  font-size: 28px;
+  color: #ff0;
+  letter-spacing: 2px;
+}
+
+.header .subtitle {
+  color: #0f0;
+  font-size: 14px;
+}
+
+.color-bar {
+  width: 100%;
+  height: 8px;
+  margin-top: 10px;
+  display: flex;
+}
+
+.color-bar div {
+  flex: 1;
+}
+
+.color-bar .c1 { background:#00f; }
+.color-bar .c2 { background:#f00; }
+.color-bar .c3 { background:#0f0; }
+.color-bar .c4 { background:#000; border:1px solid #888; }
+
+.main-title {
+  text-align:center;
+  font-size: 18px;
+  margin-top: 15px;
+  color:#0ff;
+}
+
+.table-container {
+  padding: 10px;
+}
+
+.match-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 60px 60px;
+  padding: 6px 0;
+  border-bottom: 1px solid #333;
+  font-size: 14px;
+}
+
+.match-row .code { color:#0ff; }
+.match-row .teams { color:#fff; }
+.match-row .score { color:#ff0; }
+.match-row .minute { color:#f00; }
+</style>
 </head>
+
 <body>
-  <div class="screen">
-    <div class="header">
-      <div class="logo"><span class="retro">RETRO</span><span class="score">score</span></div>
-      <div class="tagline">WHERE FOOTBALL FEELS RETRO AGAIN</div>
-    </div>
-    <div class="color-stripe">
-      <div class="c-red"></div>
-      <div class="c-yellow"></div>
-      <div class="c-green"></div>
-      <div class="c-blue"></div>
-    </div>
-    <div class="info-bar">
-      <div class="page" id="page-label">ΠΟΔΟΣΦΑΙΡΟ • LIVE ΣΚΟΡ</div>
-      <div class="status" id="status-label">ΚΑΝΕ ΚΛΙΚ ΣΕ ΑΓΩΝΑ ΓΙΑ ΣΤΑΤΙΣΤΙΚΑ</div>
-      <div class="date-time" id="datetime"></div>
-    </div>
-    <div class="nav-bar">
-      <div class="nav-item active" data-tab="live">LIVE</div>
-      <div class="nav-item inactive" data-tab="today">ΣΗΜΕΡΑ</div>
-      <div class="nav-item inactive" data-tab="settings">ΡΥΘΜΙΣΕΙΣ</div>
-    </div>
-    <div class="section-title" id="section-title">ΣΗΜΕΡΙΝΟ ΠΡΟΓΡΑΜΜΑ</div>
-    <div class="matches" id="matches"></div>
-    <div class="settings" id="settings-panel">
-      <div class="settings-row">
-        <div>
-          <div class="settings-label">Μεγάλη γραμματοσειρά</div>
-          <div class="settings-desc">Κάνει το κείμενο πιο μεγάλο για άνετη ανάγνωση.</div>
-        </div>
-        <div class="settings-toggle" id="toggle-font">OFF</div>
-      </div>
-      <div class="settings-row">
-        <div>
-          <div class="settings-label">Retro Theme Mode</div>
-          <div class="settings-desc">Το θέμα είναι ήδη στο κλασικό RETROscore στυλ.</div>
-        </div>
-        <div class="settings-toggle on">ON</div>
-      </div>
-    </div>
-    <div class="footer">
-      <div class="hint">ΠΙΕΣΕ <span class="key">F5</span> ΓΙΑ ΑΝΑΝΕΩΣΗ</div>
-      <div class="brand">RETROscore v0.5 • DEMO PWA</div>
-    </div>
+<div class="header">
+  <div class="title">RETROscore</div>
+  <div class="subtitle">LIVE TELEVIDEO MODE</div>
+
+  <div class="color-bar">
+    <div class="c1"></div>
+    <div class="c2"></div>
+    <div class="c3"></div>
+    <div class="c4"></div>
   </div>
-<script src="app.js"></script>
-</body>
-</html>
+</div>
+
+<div class="main-title">LIVE ΑΓΩΝΕΣ</div>
+
+<div class="table-container" id="live-matches">
+  Φόρτωση...
+</div>
