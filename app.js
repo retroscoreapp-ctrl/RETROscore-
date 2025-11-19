@@ -33,3 +33,45 @@ async function loadLive() {
     console.error(err);
   }
 }
+        // --- ΚΟΜΜΑΤΙ 2: TELEVIDEO ΠΙΝΑΚΑΣ ---
+
+function renderMatches(matches) {
+  const container = document.getElementById("live-matches");
+  container.innerHTML = "";
+
+  matches.forEach((m, index) => {
+    const code = 2700 + index; // Teletext style ID
+    const home = m.teams.home.name;
+    const away = m.teams.away.name;
+    const score = `${m.goals.home} - ${m.goals.away}`;
+
+    let minute = "---";
+    let color = "#ccc";
+
+    if (m.fixture.status.short === "1H" || m.fixture.status.short === "2H") {
+      minute = m.fixture.status.elapsed + "'";
+      color = m.fixture.status.elapsed >= 75 ? "#f00" : "#0f0";
+    }
+
+    if (m.fixture.status.short === "HT") {
+      minute = "ΗΤ";
+      color = "#ff0";
+    }
+
+    if (m.fixture.status.short === "FT") {
+      minute = "ΤΕΛ";
+      color = "#888";
+    }
+
+    const row = document.createElement("div");
+    row.className = "match-row";
+    row.innerHTML = `
+      <div class="code" style="color:#0ff">${code}</div>
+      <div class="teams">${home} - ${away}</div>
+      <div class="score">${score}</div>
+      <div class="minute" style="color:${color}">${minute}</div>
+    `;
+
+    container.appendChild(row);
+  });
+}
