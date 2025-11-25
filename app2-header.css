@@ -1,0 +1,63 @@
+
+/* app2-header.css */
+/* RETROscore – Premium Teletext Header (Step 2) */
+
+:root {
+  --retro-yellow: #ffe600;
+  --retro-green:  #00ff00;
+  --retro-red:    #ff0000;
+  --retro-blue:   #0000ff;
+  --retro-bg:     #000000;
+}
+
+/* Better header spacing */
+.retro-header {
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 6px;
+}
+
+/* Premium teletext logo */
+.retro-logo {
+  font-size: 38px;
+  letter-spacing: 6px;
+  font-weight: bold;
+  color: var(--retro-yellow);
+  text-shadow: 0px 0px 6px rgba(255,230,0,0.4);
+  margin-bottom: 2px;
+}
+
+/* Tagline refined */
+.retro-tagline {
+  font-size: 16px;
+  color: var(--retro-yellow);
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+/* Modern Teletext premium bar */
+.retro-bar-premium {
+  width: 100%;
+  height: 26px;
+  margin: 0 auto 20px;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,0,0,0.6);
+  background: linear-gradient(
+    to right,
+    var(--retro-blue) 0%,
+    var(--retro-blue) 33%,
+    var(--retro-red) 33%,
+    var(--retro-red) 66%,
+    var(--retro-green) 66%,
+    var(--retro-green) 100%
+  );
+}
+
+/* Optional subtle divider line */
+.retro-divider {
+  width: 90%;
+  height: 1px;
+  background: #222;
+  margin: 14px auto 10px;
+}
