@@ -1,0 +1,178 @@
+
+/* retroscore-theme.css */
+/* RETROscore – Teletext-inspired modern theme (Step 1) */
+
+/* 1. Global setup */
+:root {
+  --retro-bg: #000000;
+  --retro-text: #ffffff;
+  --retro-yellow: #ffe600;
+  --retro-red: #ff0000;
+  --retro-green: #00ff00;
+  --retro-cyan: #00ffff;
+}
+
+/* Apply dark background + monospace feel */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--retro-bg);
+  color: var(--retro-text);
+  font-family: "Courier New", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Center main content a bit, but keep teletext vibe */
+main, .app, .container, #root {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 12px 8px 32px;
+}
+
+/* 2. Header / logo area */
+h1, .logo, .title {
+  font-size: 34px;
+  letter-spacing: 4px;
+  color: var(--retro-yellow);
+  text-align: center;
+  margin: 16px 0 4px;
+}
+
+.subtitle, .tagline {
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--retro-yellow);
+  margin-bottom: 16px;
+}
+
+/* 3. Color bar under the logo – if you make a div with class="retro-bar" */
+.retro-bar {
+  width: 100%;
+  height: 18px;
+  margin: 8px 0 16px;
+  background: linear-gradient(
+    to right,
+    #0000ff 0%,
+    #0000ff 33%,
+    #ff0000 33%,
+    #ff0000 66%,
+    #00ff00 66%,
+    #00ff00 100%
+  );
+}
+
+/* 4. Section titles (LIVE SCORES, LIVE ΑΓΩΝΕΣ κλπ) */
+h2, .section-title {
+  text-align: center;
+  font-size: 26px;
+  letter-spacing: 3px;
+  color: var(--retro-cyan);
+  margin: 18px 0 8px;
+}
+
+/* Small yellow info text */
+.small-note, .info-text {
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--retro-yellow);
+  margin-bottom: 16px;
+}
+
+/* 5. Basic table / rows for scores */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+th, td {
+  padding: 6px 4px;
+}
+
+th {
+  font-weight: normal;
+  letter-spacing: 2px;
+}
+
+/* Horizontal separators */
+tr + tr {
+  border-top: 1px solid #202020;
+}
+
+/* Column align helpers if you add these classes */
+.col-code {
+  width: 64px;
+  color: var(--retro-cyan);
+}
+.col-team {
+  text-align: left;
+}
+.col-score {
+  width: 60px;
+  text-align: center;
+  color: var(--retro-yellow);
+}
+.col-minute {
+  width: 60px;
+  text-align: right;
+}
+
+/* Minute chips – add class on span */
+.minute-red {
+  color: var(--retro-red);
+}
+.minute-yellow {
+  color: var(--retro-yellow);
+}
+.minute-green {
+  color: var(--retro-green);
+}
+
+/* 6. Pager text at bottom (1 ΠΡΟΗΓ. ΣΕΛΙΔΑ κλπ) */
+.pager {
+  margin-top: 12px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--retro-cyan);
+}
+
+/* 7. Footer menu buttons (ΠΟΔΟΣΦΟΡ κλπ) */
+.footer-menu {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.footer-menu .red {
+  color: var(--retro-red);
+}
+
+.footer-menu .green {
+  color: var(--retro-green);
+}
+
+/* 8. Promo banner */
+.promo-banner {
+  margin-top: 22px;
+  padding: 10px 8px;
+  background-color: var(--retro-red);
+  color: var(--retro-yellow);
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+/* 9. Make links look retro */
+a {
+  color: var(--retro-cyan);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
