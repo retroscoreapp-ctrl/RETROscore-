@@ -1,0 +1,70 @@
+
+/* app3-table.css */
+/* Premium Teletext 2025 Score Table */
+
+/* Container spacing */
+.table-container {
+  padding: 14px 8px;
+}
+
+/* Table header (ΚΩΔ – ΟΜΑΔΑ – ΣΚΟΡ – ΛΕΠΤΟ) */
+.match-row.header {
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #222;
+}
+
+/* Rows */
+.match-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 60px 70px;
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+  font-size: 17px;
+}
+
+/* Code */
+.match-row .code {
+  color: #00ffff;
+  padding-left: 4px;
+}
+
+/* Teams */
+.match-row .teams {
+  color: #ffffff;
+  padding-left: 6px;
+  line-height: 1.25;
+}
+
+/* Score */
+.match-row .score {
+  color: #ffe600;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Minute chip (modern teletext) */
+.match-row .minute {
+  text-align: right;
+  font-weight: bold;
+  padding-right: 4px;
+}
+
+/* Chip colors */
+.minute-red { color: #ff0000; }
+.minute-yellow { color: #ffe600; }
+.minute-green { color: #00ff00; }
+
+/* Slight highlight on row hover */
+.match-row:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* Stronger divide line between sections */
+.section-divider {
+  width: 100%;
+  height: 2px;
+  background: #333;
+  margin: 10px 0;
+}
