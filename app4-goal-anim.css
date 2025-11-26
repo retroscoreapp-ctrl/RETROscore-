@@ -1,0 +1,43 @@
+
+/* app4-goal-anim.css */
+/* RETROscore – Teletext 2025 Goal Animation */
+
+/* Flash + pulse when μπαίνει γκολ (στη γραμμή του ματς) */
+@keyframes goalRowFlash {
+  0%   { background-color: rgba(255, 255, 255, 0.0); transform: scale(1.00); }
+  25%  { background-color: rgba(255, 255, 0, 0.15); transform: scale(1.03); }
+  50%  { background-color: rgba(255, 255, 255, 0.05); transform: scale(1.06); }
+  75%  { background-color: rgba(255, 255, 0, 0.12); transform: scale(1.03); }
+  100% { background-color: rgba(255, 255, 255, 0.0); transform: scale(1.00); }
+}
+
+/* Στο score κάνουμε μικρό flash */
+@keyframes goalScoreFlash {
+  0%   { color: #ffe600; text-shadow: 0 0 0 rgba(255,255,255,0); }
+  25%  { color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.7); }
+  50%  { color: #ffe600; text-shadow: 0 0 4px rgba(255,255,0,0.6); }
+  75%  { color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.7); }
+  100% { color: #ffe600; text-shadow: 0 0 0 rgba(255,255,255,0); }
+}
+
+/* Στο λεπτό όταν είναι “καυτό” (90', 45') */
+@keyframes hotMinuteFlash {
+  0%   { color: #ff0000; }
+  50%  { color: #ffe600; }
+  100% { color: #ff0000; }
+}
+
+/* Ενεργοποιείται όταν αλλάξει το σκορ (βάζουμε αυτή την κλάση στη γραμμή) */
+.match-row.goal-flash {
+  animation: goalRowFlash 0.9s ease-out;
+}
+
+/* Flash μόνο στο σκορ */
+.match-row.goal-flash .score {
+  animation: goalScoreFlash 0.9s ease-out;
+}
+
+/* Καυτό λεπτό – το JS θα προσθέσει κλάση .minute-hot όπου χρειάζεται */
+.match-row .minute.minute-hot {
+  animation: hotMinuteFlash 1.2s ease-in-out;
+}
